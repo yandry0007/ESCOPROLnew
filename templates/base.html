@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+		<img scr="/media/images/user-default.gif"/>
+		<meta charset="utf-8">
+		<title> {% block title %} BIENVENIDOS {% endblock %} </title>
+		
+		<link rel="stylesheet" href="/media/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="/media/bootstrap/css/bootstrap-responsive.css">
+		<script src="/media/js/jquery.js"></script> 
+		<script src="/media/js/jquery.form.min.js"></script>
+		<script src="/media/js/demo.js"></script>
+		<script src="/media/bootstrap/js/bootstrap.js"></script>
+		<style type="text/css">
+			body{
+				padding-top: 60px;
+				padding-bottom: 40px;
+				}
+			.sidebar-nav{
+				padding: 9px 0;
+				}
+		</style>
+
+		<!--los arreglos en python siempre empiezan desde 0 -->
+
+		<script type="text/javascript">
+			$(document).on('ready',function(){
+							$.ajax({
+								type:"GET",
+								contentType:"application/json; charset=utf-8",
+								dateType:"json",
+								url:"/ws/materias/",
+								success:function(response){
+									var i = (response.length-1)-2; 
+									for(i;i<=(response.length-1);i++){
+										$('#MateriasNuevas').append("<li>"+response[i].fields.nombre+"</li>");
+									
+									}
+								}
+							});
+					});
+
+		</script>
+
+	
+</head>
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class ="navbar-inner">
+			<a class="brand" href="/index/"><strong>INICIO</strong></a>
+			{% if user.is_authenticated %}
+			<p class="navbar-text pull-right"> 
+				Usuario: {{user.username}}
+			
+			</p>
+
+			{% endif %}
+				
+				<ul class="nav">
+					{% if user.is_authenticated %}
+						<li><a href="/listaMaterias/page/1/"><strong>ADMINISTRAR MATERIAS</strong></a></li>
+						<ul class="nav"><li><a href="/add/profesor/" ><strong>CREAR DOCENTES</strong></a></li></ul>
+						<ul class="nav"><li><a href="/add/matricula/" ><strong>CREAR MATRICULAS</strong></a></li></ul>
+						<ul class="nav"><li><a href="/add/curso/" ><strong>CREAR CURSOS</strong></a></li></ul>
+						<ul class="nav"><li><a href="/add/alumno/" ><strong>CREAR ALUMNOS</strong></a></li></ul>
+						
+					{% else %}
+						<li><a href="/listaMaterias/page/1/"><strong>MATERIAS</strong></a></li>
+						<li><a href="/contacto/"><strong>Comentarios</strong></a></li>
+						<li><a href="/about/"><strong>Acerca de...</strong></a></li>
+
+					{% endif %}
+
+				</ul>
+
+					{% if user.is_authenticated %}
+					<p class="navbar-text pull-right"> 
+					<a href="/logout/" ><strong>Cerrar Sesion</strong></a> <br>
+					<p/>
+
+					{% else %}
+						<p class="navbar-text pull-center"> 
+						<a href="/" ><strong>Login</strong></a>
+					{% endif %}	
+		
+		</div><!--/inner-->
+	</div><!--/navbar-->
+
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span9">
+				<div class="hero-unit">
+
+					{% block encabezado %}
+
+					{% endblock %}
+					
+					{% block nombre %}
+
+					{% endblock %}
+
+					{% block content %}	
+
+					{% endblock %}
+
+				</div>
+			</div>
+			<div class="span3">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">PUBLICIDAD PERSONALIZADA</li>
+						<img src="/media/images/escuela.jpg"><br>
+						<br><p aling="justify">
+						Matriculas abiertas <br> Periodo 2014-2015
+						</p>
+						
+					</ul>
+					
+				</div><!--/Well-->
+						
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list" id="MateriasNuevas">
+						<li class="nav-header">MATERIAS NUEVAS</li>
+						<p aling="justify">	</p>
+						
+					</ul>
+					
+				</div><!--/Well-->
+				
+
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">ESCOPROL</li><br>
+						<img src="/media/images/demosjuegos15.gif"><br>
+						Inscribete y obtén <br> el 20% de descuento
+						<p aling="justify">	</p>
+						
+					</ul>
+					
+				</div><!--/Well-->
+			
+			</div><!--span3-->
+
+		</div>
+		<footer>
+				<p>&copy; Proyecto de Unidad de Diseño de Sistemas 2013-2014</p>
+			</footer>
+	</div>
+
+</body>
+</html>

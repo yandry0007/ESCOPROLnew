@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+{% block title %}Contactanos {% endblock %}
+{% block content %}
+
+	{% if info_enviado %}
+	Gracias por enviar info
+	<br>
+	
+	La informacion recibida fue la siguiente
+	<br>
+
+	<p>Email: {{email}}</p>
+	<p>Titulo: {{titulo}}</p>
+	<p>Texto: {{texto}}</p>
+
+    <form action="" method="GET"> 
+		<input type="submit" value="Regresar" >
+	</form>
+
+	{% else %}
+
+	<form action="" method="POST"> 
+		{% csrf_token %}
+		{{ form.as_p }}
+	<button class="btn btn-p" type="submit">Enviar Comentario </button>
+
+
+	</form>
+{% endif %}
+{% endblock %}

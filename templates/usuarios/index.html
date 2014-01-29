@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+inicio
+{% endblock %}
+
+
+{% block content %}
+	
+	<div class="row-fluid">
+		<div class="span5">
+			<div class="row-fluid">
+				<div class="span2"></div>
+				<div class="span8 registrar">
+					
+					{% if user.is_authenticated %}
+					
+					<a href="/index/" class="btn btn-info">Coordinador </a><br>
+						<h2> {{user.username|capfirst}}</h2>
+					{% else %}
+
+
+				<form class="form-horizonta alinear"method="POST"> {% csrf_token %}
+					<div class="control-group">
+						<label class="control-label" for="inputEmail" >Usuario</label>
+						<div class="controls">
+							<input name="username" type="text" id="inputEmail" placeholder="Usuario">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label class="control-label" for="inputPassword" >Contraseña</label>
+						<div class="controls">
+							<input name="password" type="password" id="inputPassword" placeholder="Contraseña">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox">
+							<input type="checkbox" >Recordar</label><br>
+							<button type="submit" class="btn btn-primary">Ingresar</button>
+							<a href="registrar" class="btn btn-info" >Registrarse</a>
+						</div>
+					</div>
+
+				</form>
+
+				{% endif %}
+
+			</div>
+			<div class="span2"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
