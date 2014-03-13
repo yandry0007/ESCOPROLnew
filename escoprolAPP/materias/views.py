@@ -13,8 +13,8 @@ import simplejson
 
 def index_view(request):
 	return render_to_response('materias/index.html', context_instance=RequestContext(request))
-
-	
+ 
+	 
 def about_view(request):
 	mensaje = "Este es un msj desde la vista"
 	ctx = {'msg':mensaje}
@@ -58,7 +58,7 @@ def search_materia_view(request,nombre):
 	return render_to_response('materias/listaMaterias.html',ctx,context_instance=RequestContext(request))
 		
 
-
+ 
 
 
 def materias_view(request,pagina):

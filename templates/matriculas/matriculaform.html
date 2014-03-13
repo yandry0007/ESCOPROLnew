@@ -6,6 +6,8 @@
 
 <form id='formulario' method='post' action=''>
 	{% csrf_token %}
+
+
 		<p><label for="id_fecha">Fecha:</label>
 			<input type="text" name="fecha" id="id_fecha" />
 		</p>
@@ -20,7 +22,7 @@
 		</p>
 
 		<p><label for="id_alumno">Alumno:</label>
-				<select name="tipo" id="id_tipo">
+				<select name="alumno" id="id_alumno">
 					<option value="" selected="selected">Seleccione</option>
 					{% for elemento in alumnos %}				
 					<option value="{{elemento.id}}">{{elemento.nombre}}</option>
@@ -40,6 +42,9 @@
 		</p>
 
 		<p><input type='submit' class="btn btn-primary btn-large" value='Confirmar'/></p>	
+
+
+
 </form>
 
 

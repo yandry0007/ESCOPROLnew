@@ -57,15 +57,17 @@
 			</p>
 
 			{% endif %}
-				
+				 
 				<ul class="nav">
 					{% if user.is_authenticated %}
 						<li><a href="/listaMaterias/page/1/"><strong>ADMINISTRAR MATERIAS</strong></a></li>
+						<li><a href="/listaAlumnos/page/1/"><strong>ADMINISTRAR ALUMNOS</strong></a></li>
 						<ul class="nav"><li><a href="/add/profesor/" ><strong>CREAR DOCENTES</strong></a></li></ul>
-						<ul class="nav"><li><a href="/add/matricula/" ><strong>CREAR MATRICULAS</strong></a></li></ul>
+						<li><a href="/listaMatriculas/page/1/"><strong>ADMIN MATRICULAS</strong></a></li>
 						<ul class="nav"><li><a href="/add/curso/" ><strong>CREAR CURSOS</strong></a></li></ul>
-						<ul class="nav"><li><a href="/add/alumno/" ><strong>CREAR ALUMNOS</strong></a></li></ul>
 						
+						
+
 					{% else %}
 						<li><a href="/listaMaterias/page/1/"><strong>MATERIAS</strong></a></li>
 						<li><a href="/contacto/"><strong>Comentarios</strong></a></li>

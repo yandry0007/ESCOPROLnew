@@ -1,20 +1,81 @@
 {% extends 'base.html' %}
-
-{% block title %} Lista de Matriculas {%  endblock %}
-{% block encabezado %}
-	<h1> Lista de Matriculas </h1>
-{% endblock %}
-
-{% block nombre %}
-Muestra lista de Matriculas error!
-{% endblock %}
-
+{% block title %}Lista de Matriculas {% endblock %}
 {% block content %}
-	{% for elemento in profesores %}
-	<ul class="lista">
-	  	<li><strong><a href="/dato-profesor/{{elemento.id}}">{{elemento.nombre}}</a></strong></li>
-	</ul>
-	{% endfor %}
 
-<p><a class="btn btn-primary btn-large", href="/add/profesor/"> Ingresar nuevo profesor &raquo;</a></p>
+<!--IniciaModal-->
+ <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <h3 id="myModalLabel">Eliminar Matriculas</h3>
+    </div>
+    <div class="modal-body">
+    <p>¿Realmente desea eliminar el Matriculas <span id="modal_name"></span>?</p>
+    </div>
+    <div class="modal-footer">
+        <form method="post" id="frmEliminar">
+            {% csrf_token %}
+            <input type="hidden" id="modal_idMateria" name="materia_id">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>
+</div>
+<!--EndModal-->
+
+
+<h3>Lista de Matriculas</h3>
+
+{% if user.is_authenticated %}
+<a class="btn" href="/add/matricula/"><li class ="icon-plus"></li> Nueva </a><br><br>
+{% endif %}
+					
+            	
+
+ {% if listaMatriculas %}
+		<br><table class="table table-hover" id="tabla_materias">
+					<thead>
+						<tr><th>Fecha</th><th>Tipo</th><th>Alumno</th><th>Curso</th></tr>
+					</thead>
+
+			
+					{% for m in listaMatriculas %}
+						<tbody>
+							<tr id="tr{{m.id}}">
+								<td> {{m.fecha}} </td>
+								<td> {{m.tipo}} </td>
+								<td> {{m.alumno}} </td>
+								<td> {{m.curso}} </td>
+
+							</tr>
+						</tbody>
+					{% endfor %}
+			</table>
+
+{% else %}
+	<h2>No existen Matriculas</h2>
+{% endif %}
+
+
+
+{% if listaMatriculas %}
+	<div class="pagination">
+	<ul>
+		<li><a href="/listaMatriculas/page/1"> << </a></li>
+		{% if listaMatriculas.has_previous %}
+			<li><a href="/listaMatriculas/page/{{listaMatriculas.previous_page_number }}/">Prev</a></li>
+		{% else %}
+			<li><a href="#"> Prev </a></li>
+		{% endif %}
+		{% if listaMatriculas.has_next %}
+			<li><a href="/listaMatriculas/page/{{listaMatriculas.next_page_number}}/"> Next </a></li>
+		{% else %}
+			<li><a href="#"> Next </a></li>
+		{% endif %}
+			<li><a href="/listaMatriculas/page/{{listaMatriculas.paginator.num_pages}}/"> >> </a></li>
+	</ul>
+	</div>
+
+	<h4> Pagina {{ listaMatriculas.number }} de {{listaMatriculas.paginator.num_pages }}</h4>
+
+{% endif %}
+ 
 {% endblock %}

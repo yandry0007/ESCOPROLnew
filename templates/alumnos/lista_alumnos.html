@@ -1,42 +1,81 @@
 {% extends 'base.html' %}
-
-{% block title %} Lista de Alumnos{%  endblock %}
-
-{% block encabezado %}
-	<h1> Lista de Alumnos</h1>
-{% endblock %}
-
-{% block nombre %}
-Muestra lista de alumnos
-{% endblock %}
-
-
+{% block title %}Lista de Alumnos {% endblock %}
 {% block content %}
-	{% for elemento in alumnos %}
-	<ul class="lista">
-	  <li><strong><a href="/dato-alumno/{{elemento.id}}">{{elemento.nombre}}</a></strong></li>
+
+<!--IniciaModal-->
+ <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <h3 id="myModalLabel">Eliminar Alumno</h3>
+    </div>
+    <div class="modal-body">
+    <p>¿Realmente desea eliminar el Alumno <span id="modal_name"></span>?</p>
+    </div>
+    <div class="modal-footer">
+        <form method="post" id="frmEliminar">
+            {% csrf_token %}
+            <input type="hidden" id="modal_idMateria" name="materia_id">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+    </div>
+</div>
+<!--EndModal-->
+
+
+<h3>Lista de Alumnos</h3>
+
+{% if user.is_authenticated %}
+<a class="btn" href="/add/alumno_nuevo/"><li class ="icon-plus"></li> Nuevo </a><br><br>
+{% endif %}
+					
+            	
+
+ {% if listaAlumnos %}
+		<br><table class="table table-hover" id="tabla_materias">
+					<thead>
+						<tr><th>Alumnos</th><th>Direccion</th><th>Telefono</th><th>Correo</th></tr>
+					</thead>
+
+			
+					{% for m in listaAlumnos %}
+						<tbody>
+							<tr id="tr{{m.id}}">
+								<td> {{m.nombre}} </td>
+								<td> {{m.direccion}} </td>
+								<td> {{m.telefono}} </td>
+								<td> {{m.correo}} </td>
+
+							</tr>
+						</tbody>
+					{% endfor %}
+			</table>
+
+{% else %}
+	<h2>No existen Alumnos</h2>
+{% endif %}
+
+
+
+{% if listaAlumnos %}
+	<div class="pagination">
+	<ul>
+		<li><a href="/listaAlumnos/page/1"> << </a></li>
+		{% if listaAlumnos.has_previous %}
+			<li><a href="/listaAlumnos/page/{{listaAlumnos.previous_page_number }}/">Prev</a></li>
+		{% else %}
+			<li><a href="#"> Prev </a></li>
+		{% endif %}
+		{% if listaAlumnos.has_next %}
+			<li><a href="/listaAlumnos/page/{{listaAlumnos.next_page_number}}/"> Next </a></li>
+		{% else %}
+			<li><a href="#"> Next </a></li>
+		{% endif %}
+			<li><a href="/listaAlumnos/page/{{listaAlumnos.paginator.num_pages}}/"> >> </a></li>
 	</ul>
-	{% endfor %}
-	<p>
-		<a href="/add/alumno_nuevo/">Ingresar nuevo alumno &raquo;</a>
+	</div>
 
-	</p>
+	<h4> Pagina {{ listaAlumnos.number }} de {{listaAlumnos.paginator.num_pages }}</h4>
 
-	<table class="tabla">
-	    <tr id="nombre_columna"><th>Nombre</th><th>Direccion</th><th>Teléfono</th><th>E-mail</th></tr>
-		{% for alum in alumnos %}
-		<tr><td>{{ alum.nombre }}</td>
-			<td>{{ alum.direccion }}</td>
-			<td>{{ alum.telefono }}</td>
-			<td>{{ alum.correo }}</td>
-			<td>{{ cliente.curso }}</td>
-			<td><a href="/alumnos/editar/{{alum.id}}">Editar</a></td>
-			<td><a href="#">Eliminar</a></td>
-		</tr>
-		{% endfor %}
-	</table>
-
-
-
+{% endif %}
+ 
 {% endblock %}
-

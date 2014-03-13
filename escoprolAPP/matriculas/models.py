@@ -8,7 +8,7 @@ class Matricula(models.Model):
 	IMP_CHOICES=(
 			('1','REGULAR'),
 			('2','INRREGULAR'),
-			('3','REPETIDOR'),
+			('3','REPETIDOR'), 
 		)
 
 	fecha = models.DateField() 

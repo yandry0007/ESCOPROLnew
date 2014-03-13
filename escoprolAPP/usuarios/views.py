@@ -1,14 +1,15 @@
 # Create your views here.
 
-from django.views.generic import CreateView
+#from django.views.generic import CreateView
 
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import render_to_response
-from django.template import RequestContext
+#from django.shortcuts import render_to_response
+#from django.template import RequestContext
 
 from django.views.generic import FormView
 from .form import UserForm
 from .models import Perfiles
+#from escoprolAPP.usuarios.models import Usuario
 
 
 class Registrarse(FormView):
@@ -21,6 +22,7 @@ class Registrarse(FormView):
 		perfil = Perfiles()
 		perfil.user = user
 		perfil.telefono = form.cleaned_data['telefono']
+		perfil.photo = form.cleaned_data['photo']
 		perfil.save()
 		return super(Registrarse , self).form_valid(form)
 
