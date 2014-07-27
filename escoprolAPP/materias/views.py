@@ -3,7 +3,7 @@ from django.template import RequestContext
 from escoprolAPP.materias.forms import ContactForm, LoginForm
 from django.contrib.auth import login,logout,authenticate
 
-#PAGINACION
+#PAGINACION PAGE
 from django.core.paginator import Paginator,EmptyPage,InvalidPage
 
 from escoprolAPP.materias.forms import addProductForm
@@ -78,7 +78,7 @@ def materias_view(request,pagina):
 
 
 	lista_mat = Materia.objects.get_query_set() #Algo asi como select * from materias where horas=64
-	paginator = Paginator(lista_mat,4) #Cuantos elementos quieres por pagina = 3
+	paginator = Paginator(lista_mat,3) #Cuantos elementos quieres por pagina = 3
 	try:
 		page = int(pagina)
 	except:
@@ -124,7 +124,7 @@ def login_view(request):
 	if request.user.is_authenticated():
 		return HttpResponseRedirect('/index/')
 	else:
-		# Ingresar roles
+		# Ingresar roles de usuario
 		if request.method == 'POST':
 			form = LoginForm(request.POST)
 			if form.is_valid():
