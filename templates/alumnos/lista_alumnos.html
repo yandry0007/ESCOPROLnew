@@ -22,13 +22,18 @@
 <!--EndModal-->
 
 
-<h3>Lista de Alumnos</h3>
+<h3>Lista de Alumnos matriculados en la ESCOPROL</h3>
 
 {% if user.is_authenticated %}
 <a class="btn" href="/add/alumno_nuevo/"><li class ="icon-plus"></li> Nuevo </a><br><br>
 {% endif %}
 					
-            	
+    {% for elemento in alumnos %}
+	<ul class="lista">
+	  <li><strong><a href="/dato-alumno/{{elemento.id}}">{{elemento.nombre}}</a></strong></li>
+	</ul>
+	{% endfor %}
+        	
 
  {% if listaAlumnos %}
 		<br><table class="table table-hover" id="tabla_materias">
@@ -40,7 +45,7 @@
 					{% for m in listaAlumnos %}
 						<tbody>
 							<tr id="tr{{m.id}}">
-								<td> {{m.nombre}} </td>
+								<td> {{m.nombre}} </a></td>
 								<td> {{m.direccion}} </td>
 								<td> {{m.telefono}} </td>
 								<td> {{m.correo}} </td>

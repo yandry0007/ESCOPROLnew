@@ -5,7 +5,7 @@ TEMPLATE_DEBUG = DEBUG
 from unipath import Path
 RUTA_PROYECTO = Path(__file__).ancestor(2)
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Yandry_R', 'yrramiezs@unl.edu.ec'),
 )
 
 MANAGERS = ADMINS
@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'escoprolAPP.notas',
     'escoprolAPP.usuarios',
     'escoprolAPP.webServices.wsMaterias',
+    
 
 
     'django.contrib.auth',

@@ -2,7 +2,7 @@ from django import forms
 
 class addProductForm(forms.Form):
 	nombre = forms.CharField(widget=forms.TextInput())
-	num_horas = forms.CharField(widget=forms.TextInput())
+	num_horas = forms.CharField(required=True, widget=forms.TextInput())
 	descripcion = forms.CharField(widget=forms.Textarea())
 	foto = forms.ImageField(required=False)
 

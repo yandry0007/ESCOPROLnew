@@ -10,6 +10,7 @@ from escoprolAPP.materias.forms import addProductForm
 from escoprolAPP.materias.models import Materia
 from django.http import HttpResponseRedirect, HttpResponse
 import simplejson
+from django.contrib.auth.decorators import login_required
 
 def index_view(request):
 	return render_to_response('materias/index.html', context_instance=RequestContext(request))
@@ -77,7 +78,7 @@ def materias_view(request,pagina):
 
 
 	lista_mat = Materia.objects.get_query_set() #Algo asi como select * from materias where horas=64
-	paginator = Paginator(lista_mat,5) #Cuantos elementos quieres por pagina = 3
+	paginator = Paginator(lista_mat,4) #Cuantos elementos quieres por pagina = 3
 	try:
 		page = int(pagina)
 	except:
@@ -105,11 +106,11 @@ def contacto_view(request):
 	texto = ""
 	if request.method == "POST":
 		formulario = ContactForm(request.POST)
-		if formulario.is_valid():
-			info_enviado = True
-			email = formulario.cleaned_data['Email']
-			titulo = formulario.cleaned_data['Titulo']
-			texto = formulario.cleaned_data['Texto']
+		#if formulario.is_valid():
+		info_enviado = True
+		email = formulario.cleaned_data['Email']
+		titulo = formulario.cleaned_data['Titulo']
+		texto = formulario.cleaned_data['Texto']
 
 	else:
 
@@ -173,3 +174,8 @@ def edit_materia_view(request,id_mat):
 			})
 	ctx = {'form':form, 'Materia':m}
 	return render_to_response('materias/editMateria.html',ctx,context_instance=RequestContext(request))
+
+@login_required(login_url='/login')
+def privado(request):
+	usuario=request.user
+	return render_to_response('materias/privado.html',{'usuario':usuario},context_instance=RequestContext(request))

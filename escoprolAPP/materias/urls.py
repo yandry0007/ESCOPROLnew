@@ -16,5 +16,6 @@ urlpatterns = patterns('escoprolAPP.materias.views',
     url(r'^contacto/$' , 'contacto_view', name='vista_contacto'),	
     url(r'^login/$' , 'login_view', name='vista_login'),
     url(r'^logout/$' , 'logout_view', name='vista_logout'),
+    url(r'^privado/$','privado', name='vista_privado'),
   	
     )

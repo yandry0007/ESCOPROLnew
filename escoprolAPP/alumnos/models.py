@@ -9,4 +9,4 @@ class Alumno(models.Model):
 	correo= models.EmailField()
  
 	def __unicode__(self):
-		return self.nombre
+		return self.nombre 
